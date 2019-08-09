@@ -77,7 +77,9 @@ function loadDataEstados(arr) {
     }
 }
 
-// Esta función procesa la respueta del servidor con las
+// Esta función procesa la respueta del servidor con las sucursales por estado
+// y si el evento que dispara la solicitud es change entonces realiza la
+// llamada a la función para filtraInventarioPorSucursal()
 function loadInfoSucursales(evento, arr) {
     let combobox_sucursal = document.getElementById('combobox_sucursal');
 
@@ -95,10 +97,13 @@ function loadInfoSucursales(evento, arr) {
     }
 
     if (evento == 'change') {
+        // LLamada a la función filtraInventarioPorSucursal()
         filtraInventarioPorSucursal();
     }
 }
 
+// ESta función procesa la respueta del servidor con los registros en
+// inventario.
 function LoadInfoInventario(arr) {
     let tbody_inventario = document.getElementById('data_inventario');
 
@@ -122,6 +127,7 @@ function LoadInfoInventario(arr) {
     }
 }
 
+// Esta función se encarga de realizar al renderizar la pantalla por primera vez
 function loadDataPage() {
     callAjaxQueryEstado(dirRequest + "estados.php", "", loadDataEstados);
     callAjaxQuerySucursal(dirRequest + "sucursal.php", "", "load", loadInfoSucursales);
