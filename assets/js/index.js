@@ -1,4 +1,4 @@
-var dirRequest = "assets/resources/requests/";
+var dirRequest = "resources/requests/";
 
 // Función ajax que ejecta callback con la función que procesa la respueta del
 // del servidor con los estados donde hay sucursales de la farmacia
@@ -131,7 +131,7 @@ function LoadInfoInventario(arr) {
 function loadDataPage() {
     callAjaxQueryEstado(dirRequest + "estados.php", "", loadDataEstados);
     callAjaxQuerySucursal(dirRequest + "sucursal.php", "", "load", loadInfoSucursales);
-    callAjaxQueryInventario(dirRequest + "inventario.php", "", LoadInfoInventario);
+    callAjaxQueryInventario(dirRequest + "inventario.php", "opcion=1", LoadInfoInventario);
 }
 
 // Esta función valida el estado selección para filtrar los datos
@@ -149,23 +149,41 @@ function filtraSucursalPorEstado(e) {
     callAjaxQuerySucursal(dirRequest + "sucursal.php", params, e.type, loadInfoSucursales);
 }
 
-function filtraInventarioPorSucursal() {
+function filtraInventarioPorSucursal(e, medicamento) {
     let params;
     let combobox_sucursal = document.getElementById('combobox_sucursal');
 
     if (combobox_sucursal.value != 'Todas') {
-        params = "flag_filtro=1&campo=sucursal&text_filtro=" + combobox_sucursal.value;
+        params = "flag_filtro=1&" + ((medicamento === undefined) ? "opcion=1&" : "opcion=2&") + "campo=sucursal&text_filtro=" + combobox_sucursal.value + ((medicamento === undefined) ? "" : "&text_find=" + medicamento);
     } else {
         let combobox_estado = document.getElementById('combobox_estado');
 
         if(combobox_estado.value != 'Todos') {
-            params = "flag_filtro=1&campo=estado&text_filtro=" + combobox_estado.value;
+            params = "flag_filtro=1&" + ((medicamento === undefined) ? "opcion=1&" : "opcion=2&") + "campo=estado&text_filtro=" + combobox_estado.value + ((medicamento === undefined) ? "" : "&text_find=" + medicamento);
+            //params = "flag_filtro=1&opcion=1&campo=estado&text_filtro=" + combobox_estado.value;
         } else {
-            params = "flag_filtro=0&campo=sucursal&text_filtro=''";
+            params = "flag_filtro=0&" + ((medicamento === undefined) ? "opcion=1&" : "opcion=2&") + "campo=sucursal&text_filtro=''" + ((medicamento === undefined) ? "" : "&text_find=" + medicamento);
+            //params = "flag_filtro=0&opcion=1&campo=sucursal&text_filtro=''";
         }
     }
 
+    console.log(params);
+
     callAjaxQueryInventario(dirRequest + "inventario.php", params, LoadInfoInventario);
+}
+
+// Esta función filtra el medicamento por nombre al presionar enter
+function filtrarInvetnarioPorMedicamento(e) {
+    if (e.code == "Enter") {
+        e.preventDefault();
+        if (this.value.trim() != "") {
+            filtraInventarioPorSucursal("", this.value.trim());
+        }
+    } else if (e.code == "Backspace") {
+        if (this.value.length < 2) {
+            filtraInventarioPorSucursal();
+        }
+    }
 }
 
 // Esta función se ejecuta con el evento load de la ventana
@@ -177,11 +195,13 @@ function main() {
     // Cargo en las variables las dos listas desplegables de la interfaz para
     let combobox_estado = document.getElementById('combobox_estado');
     let combobox_sucursal = document.getElementById('combobox_sucursal');
+    let textbox_filtro = document.getElementById('textbox_filtro');
 
     // Escucha el evento change de las listas desplegables para realizar los
     // query para la carga de la información en pantalla
     combobox_estado.addEventListener('change', filtraSucursalPorEstado);
     combobox_sucursal.addEventListener('change', filtraInventarioPorSucursal);
+    textbox_filtro.addEventListener('keypress', filtrarInvetnarioPorMedicamento);
 }
 
 window.addEventListener('load', main);
