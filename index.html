@@ -1,67 +1,68 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Farmacia</title>
-        <link rel="stylesheet" href="assets/css/bootstrap.css" />
-        <script src="assets/js/jquery-3.3.1.js"></script>
-        <script src="assets/js/bootstrap.js"></script>
-        <script src="assets/js/index.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <br>
-            <div class="text-center">
-                <h2>Consulta de datos empleando Ajax - Farmacia</h2>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Manuel Parra">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Farmacia</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+    <script src="assets/js/jquery-3.3.1.js"></script>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/index.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <br>
+      <div class="text-center">
+        <h2>Consulta de datos empleando Ajax - Farmacia</h2>
+      </div>
+      <br>
+      <p class="text-center">A continuación una muestra de filtro visual de solicitudes por estado, inicialmente la selección predeterminada muestra "Todos"</p>
+      <form action="" id="form_filtro">
+        <div class="col-md-offset-4 col-md-4">
+          <div class="form-group row">
+            <label for="combobox_estado" class="col-sm-12 col-form-label">Seleccione el estado: </label>
+            <div class="col-sm-12">
+              <select id="combobox_estado" class="form-control"></select>
             </div>
-            <br>
-            <p class="text-center">A continuación una muestra de filtro visual de solicitudes por estado, inicialmente la selección predeterminada muestra "Todos"</p>
-            <form action="" id="form_filtro">
-                <div class="col-md-offset-4 col-md-4">
-                    <div class="form-group row">
-                        <label for="combobox_estado" class="col-sm-12 col-form-label">Seleccione el estado: </label>
-                        <div class="col-sm-12">
-                            <select id="combobox_estado" class="form-control"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-offset-4 col-md-4">
-                    <div class="form-group row">
-                        <label for="combobox_sucursal" class="col-sm-12 col-form-label">Seleccione la sucursal: </label>
-                        <div class="col-sm-12">
-                            <select id="combobox_sucursal" class="form-control"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-offset-4 col-md-4">
-                    <div class="form-group row">
-                        <label for="textbox_filtro" class="col-sm-12 col-form-label">Buscar medicamento: </label>
-                        <div class="col-sm-12">
-                            <input type="text" id="textbox_filtro" class="form-control">
-                        </div>
-                    </div>
-                    <br><br>
-                </div>
-            </form>
-            <div class="row">
-                <div class="table-responsive">
-                    <table id="grilla" class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr class="info">
-                                <th class="col-1 col-sm-1">DOCUMENTO</th>
-                                <th class="col-1 col-sm-1">CODIGO</th>
-                                <th class="col-3 col-sm-3">MEDICAMENTO</th>
-                                <th class="col-1 col-sm-1">EXISTENCIA</th>
-                                <th class="col-3 col-sm-3">SUCURSAL</th>
-                                <th class="col-3 col-sm-3">ESTADO</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_inventario"></tbody>
-                    </table>
-                </div>
-            </div>
-            <br>
+          </div>
         </div>
-    </body>
+        <div class="col-md-offset-4 col-md-4">
+          <div class="form-group row">
+            <label for="combobox_sucursal" class="col-sm-12 col-form-label">Seleccione la sucursal: </label>
+            <div class="col-sm-12">
+              <select id="combobox_sucursal" class="form-control"></select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-offset-4 col-md-4">
+          <div class="form-group row">
+            <label for="textbox_filtro" class="col-sm-12 col-form-label">Buscar medicamento: </label>
+            <div class="col-sm-12">
+              <input type="text" id="textbox_filtro" class="form-control">
+            </div>
+          </div>
+          <br><br>
+        </div>
+      </form>
+      <div class="row">
+        <div class="table-responsive">
+          <table id="grilla" class="table table-striped table-hover table-bordered">
+            <thead>
+              <tr class="info">
+                <th class="col-1 col-sm-1">DOCUMENTO</th>
+                <th class="col-1 col-sm-1">CODIGO</th>
+                <th class="col-3 col-sm-3">MEDICAMENTO</th>
+                <th class="col-1 col-sm-1">EXISTENCIA</th>
+                <th class="col-3 col-sm-3">SUCURSAL</th>
+                <th class="col-3 col-sm-3">ESTADO</th>
+              </tr>
+            </thead>
+            <tbody id="data_inventario"></tbody>
+          </table>
+        </div>
+      </div>
+      <br>
+    </div>
+  </body>
 </html>
